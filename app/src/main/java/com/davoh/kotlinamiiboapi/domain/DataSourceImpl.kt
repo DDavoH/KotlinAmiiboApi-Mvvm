@@ -8,6 +8,11 @@ import com.davoh.kotlinamiiboapi.vo.RetrofitClient
 import javax.inject.Inject
 
 class DataSourceImpl @Inject constructor(private val amiiboDao: AmiiboDao):DataSource{
+
+    override suspend fun getAllAmiibos(): Resource<List<Amiibo>> {
+        return Resource.Success(RetrofitClient.webservice.getAllAmiibos().amiiboList)
+    }
+
     override suspend fun getAmiiboByName(amiiboName: String): Resource<List<Amiibo>> {
         return Resource.Success(RetrofitClient.webservice.getAmiiboByName(amiiboName).amiiboList)
     }

@@ -6,6 +6,9 @@ import com.davoh.kotlinamiiboapi.vo.Resource
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(private val dataSource: DataSource): Repository{
+    override suspend fun getAllAmiibosList(): Resource<List<Amiibo>> {
+        return dataSource.getAllAmiibos()
+    }
 
     override suspend fun getAmiibosList(amiiboName: String): Resource<List<Amiibo>> {
         return dataSource.getAmiiboByName(amiiboName)

@@ -5,6 +5,8 @@ import com.davoh.kotlinamiiboapi.vo.Resource
 
 interface DataSource {
 
+    suspend fun getAllAmiibos(): Resource<List<Amiibo>>
+
     suspend fun getAmiiboByName(amiiboName:String): Resource<List<Amiibo>>
 
     suspend fun insertAmiiboIntoRoom(amiibo: AmiiboEntity)
