@@ -85,11 +85,10 @@ class MainFragment : Fragment(), MainAdapter.OnAmiiboClickListener {
 
     }
 
-
     override fun onAmiiboClick(amiibo: Amiibo) {
         val bundle = Bundle()
         bundle.putParcelable("amiibo", amiibo)
-        findNavController().navigate(R.id.action_mainFragment_to_favoriteFragment,bundle)
+        findNavController().navigate(R.id.action_mainFragment_to_amiiboDetails,bundle)
     }
 
 
