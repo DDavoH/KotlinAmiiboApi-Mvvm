@@ -1,10 +1,8 @@
 package com.davoh.kotlinamiiboapi.ui
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -27,6 +25,7 @@ class MainFragment : Fragment(), MainAdapter.OnAmiiboClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -89,6 +88,22 @@ class MainFragment : Fragment(), MainAdapter.OnAmiiboClickListener {
         val bundle = Bundle()
         bundle.putParcelable("amiibo", amiibo)
         findNavController().navigate(R.id.action_mainFragment_to_amiiboDetails,bundle)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        inflater.inflate(R.menu.toolbar_bar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.favorites -> {
+                findNavController().navigate(R.id.action_mainFragment_to_favoriteFragment)
+                false
+            }
+            else -> false
+        }
     }
 
 
