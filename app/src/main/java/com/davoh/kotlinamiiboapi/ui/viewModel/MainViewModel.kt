@@ -39,7 +39,7 @@ class MainViewModel @ViewModelInject constructor(private val repository: Reposit
         }
     }
 
-    fun guardarAmiibo(amiibo: AmiiboEntity){
+    fun saveAmiibo(amiibo: AmiiboEntity){
         viewModelScope.launch {
             repository.insertAmiibo(amiibo)
         }
