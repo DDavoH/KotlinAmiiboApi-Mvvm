@@ -9,7 +9,7 @@ interface Repository {
 
     suspend fun getAmiibosList(amiiboName:String): Resource<List<Amiibo>>
 
-    suspend fun getAmiibosFavoritos(): Resource<List<AmiiboEntity>>
+    suspend fun getFavoritesAmiibos(): Resource<List<AmiiboEntity>>
     suspend fun insertAmiibo(amiibo: AmiiboEntity)
     suspend fun deleteAmiibo(amiibo:AmiiboEntity)
 

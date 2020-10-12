@@ -47,8 +47,8 @@ data class AmiiboEntity(
     val character:String = "",
     @ColumnInfo(name="amiibo_gameSeries")
     val gameSeries: String = "",
-    @ColumnInfo(name="amiibo_imagen")
-    val imagen:String ="",
+    @ColumnInfo(name="amiibo_image")
+    val image:String ="",
     @ColumnInfo(name="amiibo_name")
     val name:String = "",
     @ColumnInfo(name="amiibo_type")

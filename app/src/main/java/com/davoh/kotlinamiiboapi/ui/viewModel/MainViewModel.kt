@@ -45,10 +45,10 @@ class MainViewModel @ViewModelInject constructor(private val repository: Reposit
         }
     }
 
-    fun getAmiibosFavoritos() = liveData<Resource<List<AmiiboEntity>>>(Dispatchers.IO) {
+    fun getFavoritesAmiibos() = liveData<Resource<List<AmiiboEntity>>>(Dispatchers.IO) {
         emit(Resource.Loading())
         try{
-            emit(repository.getAmiibosFavoritos())
+            emit(repository.getFavoritesAmiibos())
         }catch (e:Exception){
             emit(Resource.Failure(e))
         }

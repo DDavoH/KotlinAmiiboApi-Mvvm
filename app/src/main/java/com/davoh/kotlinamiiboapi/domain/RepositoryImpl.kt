@@ -14,8 +14,8 @@ class RepositoryImpl @Inject constructor(private val dataSource: DataSource): Re
         return dataSource.getAmiiboByName(amiiboName)
     }
 
-    override suspend fun getAmiibosFavoritos(): Resource<List<AmiiboEntity>> {
-        return dataSource.getAmiibosFavoritos()
+    override suspend fun getFavoritesAmiibos(): Resource<List<AmiiboEntity>> {
+        return dataSource.getFavoritesAmiibos()
     }
 
     override suspend fun insertAmiibo(amiibo: AmiiboEntity) {

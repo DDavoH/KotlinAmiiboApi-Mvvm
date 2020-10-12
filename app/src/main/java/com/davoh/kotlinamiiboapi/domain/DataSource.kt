@@ -11,7 +11,7 @@ interface DataSource {
 
     suspend fun insertAmiiboIntoRoom(amiibo: AmiiboEntity)
 
-    suspend fun getAmiibosFavoritos(): Resource<List<AmiiboEntity>>
+    suspend fun getFavoritesAmiibos(): Resource<List<AmiiboEntity>>
 
     suspend fun deleteAmiibo(amiibo: AmiiboEntity)
 

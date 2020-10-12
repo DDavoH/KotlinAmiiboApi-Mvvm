@@ -17,7 +17,7 @@ object AppModule{
 
     @Singleton
     @Provides
-    fun RoomInstance(@ApplicationContext context: Context)=
+    fun roomInstance(@ApplicationContext context: Context)=
         Room.databaseBuilder(
             context,
             AppDatabase::class.java,
@@ -26,6 +26,6 @@ object AppModule{
 
     @Singleton
     @Provides
-    fun AmiiboDao(db: AppDatabase) = db.amiiboDao()
+    fun amiiboDao(db: AppDatabase) = db.amiiboDao()
 
 }
