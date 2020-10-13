@@ -10,5 +10,4 @@ interface WebService {
 
     @GET("amiibo")
     suspend fun getAllAmiibos() : AmiiboList
-
 }

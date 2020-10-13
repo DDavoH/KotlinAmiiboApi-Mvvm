@@ -18,16 +18,15 @@ class DataSourceImpl @Inject constructor(private val amiiboDao: AmiiboDao):DataS
     }
 
     override suspend fun insertAmiiboIntoRoom(amiibo: AmiiboEntity) {
-      amiiboDao.insertFavoriteAmiibo(amiibo)
+        amiiboDao.insertFavoriteAmiibo(amiibo)
     }
 
     override suspend fun getFavoritesAmiibos(): Resource<List<AmiiboEntity>> {
-      return Resource.Success(amiiboDao.getAllFavoriteAmiibos())
+        return Resource.Success(amiiboDao.getAllFavoriteAmiibos())
     }
 
     override suspend fun deleteAmiibo(amiibo: AmiiboEntity) {
         amiiboDao.deleteFavoriteAmiibo(amiibo)
     }
-
 
 }

@@ -2,7 +2,6 @@ package com.davoh.kotlinamiiboapi.di
 
 import android.content.Context
 import androidx.room.Room
-import com.davoh.kotlinamiiboapi.database.AmiiboDao
 import com.davoh.kotlinamiiboapi.database.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -22,7 +21,6 @@ object AppModule{
             context,
             AppDatabase::class.java,
             "amiibos_tabla").build()
-
 
     @Singleton
     @Provides

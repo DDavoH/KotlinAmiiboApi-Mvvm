@@ -14,7 +14,6 @@ class MainAdapter(private val context: Context, private val amiibosList: List<Am
                   private val itemClickListener:OnAmiiboClickListener) :
     RecyclerView.Adapter<BaseViewHolder<*>>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         return MainViewHolder(
             LayoutInflater.from(context).inflate(R.layout.amiibo_row, parent, false)
@@ -44,6 +43,5 @@ class MainAdapter(private val context: Context, private val amiibosList: List<Am
     interface OnAmiiboClickListener{
         fun onAmiiboClick(amiibo:Amiibo)
     }
-
 
 }

@@ -26,5 +26,4 @@ class RepositoryImpl @Inject constructor(private val dataSource: DataSource): Re
         dataSource.deleteAmiibo(amiibo)
     }
 
-
 }

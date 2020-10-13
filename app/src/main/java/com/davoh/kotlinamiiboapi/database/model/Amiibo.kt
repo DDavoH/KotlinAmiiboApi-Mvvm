@@ -32,7 +32,6 @@ data class AmiiboList(
     val amiiboList:List<Amiibo>
 )
 
-
 @Entity(tableName = "amiibos_entity")
 data class AmiiboEntity(
     @PrimaryKey
