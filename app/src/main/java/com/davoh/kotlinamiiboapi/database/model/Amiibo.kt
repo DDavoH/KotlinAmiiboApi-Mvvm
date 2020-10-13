@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.davoh.kotlinamiiboapi.vo.Resource
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -53,3 +54,11 @@ data class AmiiboEntity(
     @ColumnInfo(name="amiibo_type")
     val type:String = ""
 )
+
+fun List<AmiiboEntity>.asFavoriteAmiiboList(): List<Amiibo> = this.map {
+    Amiibo(it.head, it.tail, it.amiiboSeries, it.character, it.gameSeries, it.image, it.name, it.type)
+}
+
+fun Amiibo.asAmiiboEntity():AmiiboEntity =
+    AmiiboEntity(this.head + this.tail, this.head, this.tail, this.amiiboSeries, this.character,
+    this.gameSeries, this.image,this.name,this.type)

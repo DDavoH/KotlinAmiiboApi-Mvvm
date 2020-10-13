@@ -85,9 +85,7 @@ class MainFragment : Fragment(), MainAdapter.OnAmiiboClickListener {
     }
 
     override fun onAmiiboClick(amiibo: Amiibo) {
-        val bundle = Bundle()
-        bundle.putParcelable("amiibo", amiibo)
-        findNavController().navigate(R.id.action_mainFragment_to_amiiboDetails,bundle)
+        findNavController().navigate(MainFragmentDirections.actionMainFragmentToAmiiboDetails(amiibo))
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -99,7 +97,7 @@ class MainFragment : Fragment(), MainAdapter.OnAmiiboClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.favorites -> {
-                findNavController().navigate(R.id.action_mainFragment_to_favoriteFragment)
+                findNavController().navigate(MainFragmentDirections.actionMainFragmentToFavoriteFragment())
                 false
             }
             else -> false

@@ -12,9 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.davoh.kotlinamiiboapi.R
 import com.davoh.kotlinamiiboapi.database.model.Amiibo
-import com.davoh.kotlinamiiboapi.database.model.AmiiboEntity
 import com.davoh.kotlinamiiboapi.ui.adapters.FavoriteAdapter
-import com.davoh.kotlinamiiboapi.ui.adapters.MainAdapter
 import com.davoh.kotlinamiiboapi.ui.viewModel.MainViewModel
 import com.davoh.kotlinamiiboapi.vo.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -65,9 +63,8 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnAmiiboClickListener {
 
     }
 
-    override fun onAmiiboClick(amiibo: AmiiboEntity) {
-        val bundle = Bundle()
-        findNavController().navigate(R.id.action_favoriteFragment_to_amiiboDetails,bundle)
+    override fun onAmiiboClick(amiibo: Amiibo) {
+       findNavController().navigate(FavoriteFragmentDirections.actionFavoriteFragmentToAmiiboDetails(amiibo))
     }
 
 }

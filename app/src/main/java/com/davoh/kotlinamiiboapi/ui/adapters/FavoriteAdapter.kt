@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.davoh.kotlinamiiboapi.R
-import com.davoh.kotlinamiiboapi.database.model.AmiiboEntity
+import com.davoh.kotlinamiiboapi.database.model.Amiibo
+
 import kotlinx.android.synthetic.main.amiibo_row.view.*
 
-class FavoriteAdapter(private val context: Context, private val amiibosList: List<AmiiboEntity>,
-                  private val itemClickListener:OnAmiiboClickListener) :
+class FavoriteAdapter(private val context: Context, private val amiibosList: List<Amiibo>,
+                      private val itemClickListener:OnAmiiboClickListener) :
     RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
@@ -31,8 +32,8 @@ class FavoriteAdapter(private val context: Context, private val amiibosList: Lis
     }
 
     //inner class evitar un leak de memory se cierra al cerrarse el mainadapter
-    inner class MainViewHolder(itemView: View) : BaseViewHolder<AmiiboEntity>(itemView) {
-        override fun bind(item: AmiiboEntity, position: Int) {
+    inner class MainViewHolder(itemView: View) : BaseViewHolder<Amiibo>(itemView) {
+        override fun bind(item: Amiibo, position: Int) {
             Glide.with(context).load(item.image).fitCenter().into(itemView.imagen)
             itemView.txtName.text = item.name
             itemView.txtAmiiboSeries.text = item.amiiboSeries
@@ -41,7 +42,7 @@ class FavoriteAdapter(private val context: Context, private val amiibosList: Lis
     }
 
     interface OnAmiiboClickListener{
-        fun onAmiiboClick(amiibo: AmiiboEntity)
+        fun onAmiiboClick(amiibo: Amiibo)
     }
 
 }

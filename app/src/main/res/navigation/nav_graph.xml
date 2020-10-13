@@ -37,10 +37,22 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+
+
+
     </fragment>
     <fragment
         android:id="@+id/amiiboDetails"
         android:name="com.davoh.kotlinamiiboapi.ui.AmiiboDetails"
         android:label="Details"
-        tools:layout="@layout/fragment_amiibo_details" />
+        tools:layout="@layout/fragment_amiibo_details"
+        >
+
+        <argument
+            android:name="amiibo"
+            app:argType="com.davoh.kotlinamiiboapi.database.model.Amiibo"
+            app:nullable="false" />
+    </fragment>
+
 </navigation>

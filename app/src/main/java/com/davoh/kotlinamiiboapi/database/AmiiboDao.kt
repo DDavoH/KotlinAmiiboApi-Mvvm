@@ -1,12 +1,13 @@
 package com.davoh.kotlinamiiboapi.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.davoh.kotlinamiiboapi.database.model.AmiiboEntity
 
 @Dao
 interface AmiiboDao {
     @Query("SELECT * FROM amiibos_entity")
-    suspend fun getAllFavoriteAmiibos():List<AmiiboEntity>
+    fun getAllFavoriteAmiibos(): LiveData<List<AmiiboEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavoriteAmiibo(amiibo: AmiiboEntity)

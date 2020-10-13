@@ -1,7 +1,10 @@
 package com.davoh.kotlinamiiboapi.domain
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.davoh.kotlinamiiboapi.database.model.Amiibo
 import com.davoh.kotlinamiiboapi.database.model.AmiiboEntity
+import com.davoh.kotlinamiiboapi.database.model.asFavoriteAmiiboList
 import com.davoh.kotlinamiiboapi.vo.Resource
 import javax.inject.Inject
 
@@ -14,7 +17,7 @@ class RepositoryImpl @Inject constructor(private val dataSource: DataSource): Re
         return dataSource.getAmiiboByName(amiiboName)
     }
 
-    override suspend fun getFavoritesAmiibos(): Resource<List<AmiiboEntity>> {
+    override fun getFavoritesAmiibos(): LiveData<List<Amiibo>> {
         return dataSource.getFavoritesAmiibos()
     }
 

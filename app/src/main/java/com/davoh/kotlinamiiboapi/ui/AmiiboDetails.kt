@@ -25,8 +25,11 @@ class AmiiboDetails : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireArguments().let{
-            amiibo=it.getParcelable("amiibo")!!
+            AmiiboDetailsArgs.fromBundle(it).also { args->
+                amiibo = args.amiibo
+            }
         }
+
     }
 
     override fun onCreateView(
