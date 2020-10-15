@@ -29,4 +29,8 @@ class RepositoryImpl @Inject constructor(private val dataSource: DataSource): Re
         dataSource.deleteAmiibo(amiibo)
     }
 
+    override suspend fun isAmiiboFavorite(amiibo: Amiibo): Boolean =
+        dataSource.isAmiiboFavorite(amiibo)
+
+
 }

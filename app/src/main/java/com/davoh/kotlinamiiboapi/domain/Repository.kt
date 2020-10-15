@@ -14,4 +14,6 @@ interface Repository {
     suspend fun insertAmiibo(amiibo: AmiiboEntity)
     suspend fun deleteAmiibo(amiibo:AmiiboEntity)
 
+    suspend fun isAmiiboFavorite(amiibo:Amiibo): Boolean
+
 }

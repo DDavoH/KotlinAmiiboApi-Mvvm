@@ -14,4 +14,10 @@ interface AmiiboDao {
 
     @Delete
     suspend fun deleteFavoriteAmiibo(amiibo: AmiiboEntity)
+
+    @Query("SELECT * FROM amiibos_entity WHERE amiibo_head = :amiibo_head AND amiibo_tail = :amiibo_tail")
+    suspend fun getAmiiboById(amiibo_head: String, amiibo_tail: String): AmiiboEntity?
+
+
+
 }

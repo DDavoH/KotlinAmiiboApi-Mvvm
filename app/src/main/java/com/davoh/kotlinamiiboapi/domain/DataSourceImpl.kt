@@ -34,4 +34,8 @@ class DataSourceImpl @Inject constructor(private val amiiboDao: AmiiboDao):DataS
         amiiboDao.deleteFavoriteAmiibo(amiibo)
     }
 
+    override suspend fun isAmiiboFavorite(amiibo: Amiibo): Boolean {
+        return amiiboDao.getAmiiboById(amiibo.head , amiibo.tail) != null
+    }
+
 }

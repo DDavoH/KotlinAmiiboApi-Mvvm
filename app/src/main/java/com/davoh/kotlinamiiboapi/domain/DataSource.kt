@@ -16,4 +16,7 @@ interface DataSource {
 
     suspend fun deleteAmiibo(amiibo: AmiiboEntity)
 
+    suspend fun isAmiiboFavorite(amiibo: Amiibo): Boolean
+
+
 }

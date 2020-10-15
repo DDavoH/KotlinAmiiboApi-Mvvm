@@ -61,6 +61,7 @@ class MainViewModel @ViewModelInject constructor(private val repository: Reposit
         }
     }
 
-
+    suspend fun isAmiiboFavorite(amiibo: Amiibo): Boolean =
+        repository.isAmiiboFavorite(amiibo)
 
 }
