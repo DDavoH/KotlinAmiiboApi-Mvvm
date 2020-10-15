@@ -5,6 +5,7 @@ import androidx.lifecycle.map
 import com.davoh.kotlinamiiboapi.database.AmiiboDao
 import com.davoh.kotlinamiiboapi.database.model.Amiibo
 import com.davoh.kotlinamiiboapi.database.model.AmiiboEntity
+import com.davoh.kotlinamiiboapi.database.model.asAmiiboEntity
 import com.davoh.kotlinamiiboapi.database.model.asFavoriteAmiiboList
 import com.davoh.kotlinamiiboapi.vo.Resource
 import com.davoh.kotlinamiiboapi.vo.RetrofitClient
@@ -22,16 +23,16 @@ class DataSourceImpl @Inject constructor(private val amiiboDao: AmiiboDao):DataS
         return Resource.Success(RetrofitClient.webservice.getAmiiboByName(amiiboName).amiiboList)
     }
 
-    override suspend fun insertAmiiboIntoRoom(amiibo: AmiiboEntity) {
-        amiiboDao.insertFavoriteAmiibo(amiibo)
+    override suspend fun insertAmiiboIntoRoom(amiibo: Amiibo) {
+        amiiboDao.insertFavoriteAmiibo(amiibo.asAmiiboEntity())
     }
 
     override fun getFavoritesAmiibos(): LiveData<List<Amiibo>>{
         return amiiboDao.getAllFavoriteAmiibos().map { it.asFavoriteAmiiboList() }
     }
 
-    override suspend fun deleteAmiibo(amiibo: AmiiboEntity) {
-        amiiboDao.deleteFavoriteAmiibo(amiibo)
+    override suspend fun deleteAmiibo(amiibo: Amiibo) {
+        amiiboDao.deleteFavoriteAmiibo(amiibo.asAmiiboEntity())
     }
 
     override suspend fun isAmiiboFavorite(amiibo: Amiibo): Boolean {

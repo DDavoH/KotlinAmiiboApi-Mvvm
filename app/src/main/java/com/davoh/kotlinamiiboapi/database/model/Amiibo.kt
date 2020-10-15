@@ -58,3 +58,7 @@ data class AmiiboEntity(
 fun List<AmiiboEntity>.asFavoriteAmiiboList(): List<Amiibo> = this.map {
     Amiibo(it.head, it.tail, it.amiiboSeries, it.character, it.gameSeries, it.image, it.name, it.type)
 }
+
+fun Amiibo.asAmiiboEntity(): AmiiboEntity =
+    AmiiboEntity(this.head+ this.tail,this.head, this.tail, this.amiiboSeries, this.character, this.gameSeries,
+    this.image, this.name, this.type)

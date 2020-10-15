@@ -39,11 +39,16 @@ class MainViewModel @ViewModelInject constructor(private val repository: Reposit
         }
     }
 
-    fun saveAmiibo(amiibo: AmiiboEntity){
+    fun saveOrDeleteAmiibo(amiibo: Amiibo){
         viewModelScope.launch {
-            repository.insertAmiibo(amiibo)
+            if(repository.isAmiiboFavorite(amiibo)){
+                repository.deleteAmiibo(amiibo)
+            }else{
+                repository.insertAmiibo(amiibo)
+            }
         }
     }
+    
 
     fun getFavoritesAmiibos() =
         liveData<Resource<List<Amiibo>>>( Dispatchers.IO) {
@@ -55,11 +60,6 @@ class MainViewModel @ViewModelInject constructor(private val repository: Reposit
             }
         }
 
-    fun deleteAmiibo(amiibo: AmiiboEntity){
-        viewModelScope.launch {
-            repository.deleteAmiibo(amiibo)
-        }
-    }
 
     suspend fun isAmiiboFavorite(amiibo: Amiibo): Boolean =
         repository.isAmiiboFavorite(amiibo)

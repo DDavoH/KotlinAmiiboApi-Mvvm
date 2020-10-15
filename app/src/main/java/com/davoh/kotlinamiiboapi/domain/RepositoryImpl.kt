@@ -21,11 +21,11 @@ class RepositoryImpl @Inject constructor(private val dataSource: DataSource): Re
         return dataSource.getFavoritesAmiibos()
     }
 
-    override suspend fun insertAmiibo(amiibo: AmiiboEntity) {
+    override suspend fun insertAmiibo(amiibo: Amiibo) {
         dataSource.insertAmiiboIntoRoom(amiibo)
     }
 
-    override suspend fun deleteAmiibo(amiibo: AmiiboEntity) {
+    override suspend fun deleteAmiibo(amiibo: Amiibo) {
         dataSource.deleteAmiibo(amiibo)
     }
 

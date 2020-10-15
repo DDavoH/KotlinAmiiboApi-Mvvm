@@ -51,11 +51,11 @@ class AmiiboDetails : Fragment() {
         txtAmiiboSeries.text = amiibo.amiiboSeries
 
         floatingActionButton.setOnClickListener{
-            val amiibo:AmiiboEntity = AmiiboEntity(amiibo.head + amiibo.tail, amiibo.head, amiibo.tail,
+            val amiibo = Amiibo( amiibo.head, amiibo.tail,
                 amiibo.amiiboSeries, amiibo.character, amiibo.gameSeries,
                 amiibo.image, amiibo.name, amiibo.type)
             Toast.makeText(requireContext(),"Amiibo was added to favorite", Toast.LENGTH_SHORT).show()
-            viewModel.saveAmiibo(amiibo)
+            viewModel.saveOrDeleteAmiibo(amiibo)
         }
 
         viewLifecycleOwner.lifecycleScope.launch{

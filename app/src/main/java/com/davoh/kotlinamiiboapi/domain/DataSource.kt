@@ -10,11 +10,11 @@ interface DataSource {
 
     suspend fun getAmiiboByName(amiiboName:String): Resource<List<Amiibo>>
 
-    suspend fun insertAmiiboIntoRoom(amiibo: AmiiboEntity)
+    suspend fun insertAmiiboIntoRoom(amiibo: Amiibo)
 
     fun getFavoritesAmiibos(): LiveData<List<Amiibo>>
 
-    suspend fun deleteAmiibo(amiibo: AmiiboEntity)
+    suspend fun deleteAmiibo(amiibo: Amiibo)
 
     suspend fun isAmiiboFavorite(amiibo: Amiibo): Boolean
 

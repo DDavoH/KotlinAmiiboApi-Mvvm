@@ -11,8 +11,8 @@ interface Repository {
     suspend fun getAmiibosList(amiiboName:String): Resource<List<Amiibo>>
 
     fun getFavoritesAmiibos(): LiveData<List<Amiibo>>
-    suspend fun insertAmiibo(amiibo: AmiiboEntity)
-    suspend fun deleteAmiibo(amiibo:AmiiboEntity)
+    suspend fun insertAmiibo(amiibo: Amiibo)
+    suspend fun deleteAmiibo(amiibo:Amiibo)
 
     suspend fun isAmiiboFavorite(amiibo:Amiibo): Boolean
 
