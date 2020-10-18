@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.davoh.kotlinamiiboapi.R
 import com.davoh.kotlinamiiboapi.database.model.Amiibo
@@ -56,6 +57,7 @@ class AmiiboDetails : Fragment() {
                 amiibo.image, amiibo.name, amiibo.type)
             Toast.makeText(requireContext(),"Amiibo was added to favorite", Toast.LENGTH_SHORT).show()
             viewModel.saveOrDeleteAmiibo(amiibo)
+            findNavController().navigateUp()
         }
 
         viewLifecycleOwner.lifecycleScope.launch{
