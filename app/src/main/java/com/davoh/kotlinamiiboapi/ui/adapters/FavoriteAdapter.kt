@@ -37,6 +37,7 @@ class FavoriteAdapter(private val context: Context, private val amiibosList: Lis
             Glide.with(context).load(item.image).fitCenter().into(itemView.imagen)
             itemView.txtName.text = item.name
             itemView.txtAmiiboSeries.text = item.amiiboSeries
+            itemView.txtAmiiboType.text = item.type
             itemView.setOnClickListener{itemClickListener.onAmiiboClick(item)}
         }
     }
