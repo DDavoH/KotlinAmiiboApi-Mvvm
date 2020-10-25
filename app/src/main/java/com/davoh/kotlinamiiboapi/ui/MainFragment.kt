@@ -1,8 +1,11 @@
 package com.davoh.kotlinamiiboapi.ui
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import android.widget.SearchView
 import android.widget.Toast
@@ -77,7 +80,22 @@ class MainFragment : Fragment(), MainAdapter.OnAmiiboClickListener {
                 return false
             }
         })
-    }
+
+        binding.searchView.setOnCloseListener(object : SearchView.OnCloseListener {
+            override fun onClose(): Boolean {
+                Log.d("seachview", "onClose: ")
+                binding.root.hideKeyboard()
+                return true
+            }
+
+            fun View.hideKeyboard() {
+                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(windowToken, 0)
+            }
+        })
+        
+        }
+
 
     private fun observers(){
         viewModel.fetchAmiibosList.observe(viewLifecycleOwner, Observer{ result->
@@ -120,8 +138,15 @@ class MainFragment : Fragment(), MainAdapter.OnAmiiboClickListener {
         }
     }
 
+    
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+    
 }
+
+
+
+
