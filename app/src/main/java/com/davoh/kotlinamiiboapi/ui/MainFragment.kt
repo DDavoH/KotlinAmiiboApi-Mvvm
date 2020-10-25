@@ -49,16 +49,10 @@ class MainFragment : Fragment(), MainAdapter.OnAmiiboClickListener {
         super.onViewCreated(view, savedInstanceState)
         recyclerView()
         searchView()
+        swipeToRefresh()
         observers()
 
-        //** Set the colors of the Pull To Refresh View
-        binding.itemsswipetorefresh.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
-        binding.itemsswipetorefresh.setColorSchemeColors(Color.WHITE)
 
-        binding.itemsswipetorefresh.setOnRefreshListener {
-            viewModel.setAmiibo("")
-            binding.itemsswipetorefresh.isRefreshing = false
-        }
     }
 
     private fun recyclerView(){
@@ -93,9 +87,19 @@ class MainFragment : Fragment(), MainAdapter.OnAmiiboClickListener {
                 imm.hideSoftInputFromWindow(windowToken, 0)
             }
         })
-        
+
         }
 
+    private fun swipeToRefresh(){
+        //** Set the colors of the Pull To Refresh View
+        binding.itemsswipetorefresh.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+        binding.itemsswipetorefresh.setColorSchemeColors(Color.WHITE)
+
+        binding.itemsswipetorefresh.setOnRefreshListener {
+            viewModel.setAmiibo("")
+            binding.itemsswipetorefresh.isRefreshing = false
+        }
+    }
 
     private fun observers(){
         viewModel.fetchAmiibosList.observe(viewLifecycleOwner, Observer{ result->
