@@ -1,10 +1,12 @@
 package com.davoh.kotlinamiiboapi.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -45,6 +47,15 @@ class MainFragment : Fragment(), MainAdapter.OnAmiiboClickListener {
         recyclerView()
         searchView()
         observers()
+
+        //** Set the colors of the Pull To Refresh View
+        binding.itemsswipetorefresh.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+        binding.itemsswipetorefresh.setColorSchemeColors(Color.WHITE)
+
+        binding.itemsswipetorefresh.setOnRefreshListener {
+            viewModel.setAmiibo("")
+            binding.itemsswipetorefresh.isRefreshing = false
+        }
     }
 
     private fun recyclerView(){
