@@ -10,18 +10,21 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.davoh.kotlinamiiboapi.R
 import com.davoh.kotlinamiiboapi.database.model.Amiibo
+import com.davoh.kotlinamiiboapi.databinding.FragmentFavoriteBinding
 import com.davoh.kotlinamiiboapi.ui.adapters.FavoriteAdapter
 import com.davoh.kotlinamiiboapi.ui.viewModel.MainViewModel
 import com.davoh.kotlinamiiboapi.vo.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_main.*
+
 
 @AndroidEntryPoint
 class FavoriteFragment : Fragment(), FavoriteAdapter.OnAmiiboClickListener {
 
     private val viewModel by activityViewModels<MainViewModel>()
+
+    private var _binding: FragmentFavoriteBinding?=null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +34,9 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnAmiiboClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_favorite, container, false)
+        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        val view =  binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,21 +46,21 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnAmiiboClickListener {
     }
 
     private fun recyclerView(){
-        rv_amiibos.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvAmiibos.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun observers(){
         viewModel.getFavoritesAmiibos().observe(viewLifecycleOwner, Observer{ result->
             when(result){
                 is Resource.Loading -> {
-                    progresBar.visibility = View.VISIBLE
+                    binding.progresBar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    progresBar.visibility = View.GONE
-                    rv_amiibos.adapter = FavoriteAdapter(requireContext(), result.data, this)
+                    binding.progresBar.visibility = View.GONE
+                    binding.rvAmiibos.adapter = FavoriteAdapter(requireContext(), result.data, this)
                 }
                 is Resource.Failure -> {
-                    progresBar.visibility = View.GONE
+                    binding.progresBar.visibility = View.GONE
                     Toast.makeText(requireContext(), "Ocurrió un error al traer los datos ${result.exception}", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -65,6 +70,11 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnAmiiboClickListener {
 
     override fun onAmiiboClick(amiibo: Amiibo) {
        findNavController().navigate(FavoriteFragmentDirections.actionFavoriteFragmentToAmiiboDetails(amiibo))
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

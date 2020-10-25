@@ -13,16 +13,18 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.davoh.kotlinamiiboapi.R
 import com.davoh.kotlinamiiboapi.database.model.Amiibo
-import com.davoh.kotlinamiiboapi.database.model.AmiiboEntity
+import com.davoh.kotlinamiiboapi.databinding.FragmentAmiiboDetailsBinding
 import com.davoh.kotlinamiiboapi.ui.viewModel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_amiibo_details.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AmiiboDetails : Fragment() {
     private val TAG = "AmiiboDetails"
     private val viewModel by activityViewModels<MainViewModel>()
+
+    private var _binding: FragmentAmiiboDetailsBinding?=null
+    private val binding get() = _binding!!
 
     private lateinit var amiibo:Amiibo
 
@@ -42,16 +44,18 @@ class AmiiboDetails : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-             return inflater.inflate(R.layout.fragment_amiibo_details, container, false)
+        _binding = FragmentAmiiboDetailsBinding.inflate(inflater, container, false)
+        val view =  binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Glide.with(requireContext()).load(amiibo.image).fitCenter().into(imageView)
-        txtName.text = amiibo.name
-        txtAmiiboSeries.text = amiibo.amiiboSeries
+        Glide.with(requireContext()).load(amiibo.image).fitCenter().into(binding.imageView)
+        binding.txtName.text = amiibo.name
+        binding.txtAmiiboSeries.text = amiibo.amiiboSeries
 
-        floatingActionButton.setOnClickListener{
+        binding.floatingActionButton.setOnClickListener{
             val amiibo = Amiibo( amiibo.head, amiibo.tail,
                 amiibo.amiiboSeries, amiibo.character, amiibo.gameSeries,
                 amiibo.image, amiibo.name, amiibo.type)
@@ -71,13 +75,16 @@ class AmiiboDetails : Fragment() {
         val isAmiiboFavorited = isAmiiboFavorited ?: return
         Log.d(TAG, "updateButtonIcon: ")
         when {
-            isAmiiboFavorited -> floatingActionButton.setImageResource(R.drawable.ic_baseline_delete_24)
-            else -> floatingActionButton.setImageResource(R.drawable.ic_baseline_add_24)
+            isAmiiboFavorited -> binding.floatingActionButton.setImageResource(R.drawable.ic_baseline_delete_24)
+            else -> binding.floatingActionButton.setImageResource(R.drawable.ic_baseline_add_24)
         }
     }
 
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 
 }

@@ -8,20 +8,23 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.davoh.kotlinamiiboapi.R
 import com.davoh.kotlinamiiboapi.database.model.Amiibo
+import com.davoh.kotlinamiiboapi.databinding.FragmentMainBinding
 import com.davoh.kotlinamiiboapi.ui.adapters.MainAdapter
 import com.davoh.kotlinamiiboapi.ui.viewModel.MainViewModel
 import com.davoh.kotlinamiiboapi.vo.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_main.*
+
 
 @AndroidEntryPoint
 class MainFragment : Fragment(), MainAdapter.OnAmiiboClickListener {
 
     private val viewModel by activityViewModels<MainViewModel>()
+
+    private var _binding: FragmentMainBinding?=null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +35,9 @@ class MainFragment : Fragment(), MainAdapter.OnAmiiboClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        val view =  binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,11 +48,11 @@ class MainFragment : Fragment(), MainAdapter.OnAmiiboClickListener {
     }
 
     private fun recyclerView(){
-        rv_amiibos.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvAmiibos.layoutManager =  LinearLayoutManager(requireContext())
     }
 
     private fun searchView(){
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        binding.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     viewModel.setAmiibo(query)
@@ -67,14 +72,14 @@ class MainFragment : Fragment(), MainAdapter.OnAmiiboClickListener {
         viewModel.fetchAmiibosList.observe(viewLifecycleOwner, Observer{ result->
             when(result){
                 is Resource.Loading -> {
-                    progresBar.visibility = View.VISIBLE
+                    binding.progresBar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    progresBar.visibility = View.GONE
-                    rv_amiibos.adapter = MainAdapter(requireContext(), result.data, this)
+                    binding.progresBar.visibility = View.GONE
+                    binding.rvAmiibos.adapter = MainAdapter(requireContext(), result.data, this)
                 }
                 is Resource.Failure -> {
-                    progresBar.visibility = View.GONE
+                    binding.progresBar.visibility = View.GONE
                     Toast.makeText(requireContext(), "Ocurrió un error al traer los datos ${result.exception}", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -104,5 +109,8 @@ class MainFragment : Fragment(), MainAdapter.OnAmiiboClickListener {
         }
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
